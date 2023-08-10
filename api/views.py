@@ -35,8 +35,11 @@ def addCourse(request):
     # data holds the json sent as part of the post request
     data = request.data
 
-    course = Course(name=data['name'], teacher=data['teacher'])
+    teacher = Teacher.objects.get(name=data['teacher'])
+    course = Course(name=data['name'], Teacher=teacher)
     course.save()
+
+    return Response()
 
 @api_view(['POST'])
 def addCourseContent(request):
