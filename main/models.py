@@ -37,6 +37,7 @@ class EnrollmentLog(models.Model):
     'This stores the log of a student enrolling into a course'
     Student = models.ForeignKey('Student', on_delete=models.CASCADE)
     Course = models.ForeignKey('Course', on_delete=models.CASCADE)
+    progress = models.IntegerField(default = 0)
     def __str__(self) -> str:
         return f"{self.Student.name} {self.Course}"
 

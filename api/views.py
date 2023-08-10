@@ -65,6 +65,7 @@ def getStudentCourse(request):
 
     for s in enrolLogs:     
         # course = Course.objects.get(pk=s.Course)
+        response.append(s.progress)
         s = CourseSerializer(s.Course)
         response.append(s.data)
 
