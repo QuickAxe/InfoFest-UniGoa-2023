@@ -17,26 +17,20 @@ def getCourse(request):
 
     data = request.data
 
-    crsVal = request.query_params.get('crsVal')
+    courseVal = request.query_params.get('courseVal')
+    course = Course.objects.get(name=courseVal)
+    courseContent = CourseContent.objects.filter(Course=courseVal)
 
-    crs = CourseContent.objects.filter(Course=crsVal)
+    response = {"course":course, "courseContent":courseContent}
 
-    # for i in crs:
+
+    
+    # for i in course:
     #     i['videoURL']
 
+    print(course)
 
-
-    print(crs)
-
-
-
-
-
-
-
-
-
-    return Response()
+    return Response(response)
 
 @api_view(['POST'])
 def addCourse(request):
@@ -44,22 +38,23 @@ def addCourse(request):
     # data holds the json sent as part of the post request
     data = request.data
 
-    crs = Course(name=data['name'], teacher=data['teacher'])
-    crs.add()
+    course = Course(name=data['name'], teacher=data['teacher'])
+    course.save()
+
+@api_view(['POST'])
+def addCourseContent(request):
+
+    data = request.data
+
+    course = CourseContent.objects.filter(Course=data['course'])
     
-    id = crs.id
-    n = data['number']
+    id = course.id
 
-    for i in range(n):
-        crsContent = CourseContent(Course=id, )
-    
+    courseContent = CourseContent(videoURL=data['URL'], textContent = data['textContent'] )
+    courseContent.type_id = id
 
-    
-    crsContent = CourseContent()
-
-
+    courseContent.save() 
     print(data)
-
     return Response()
 
 
