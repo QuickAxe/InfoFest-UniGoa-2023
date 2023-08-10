@@ -8,7 +8,9 @@ def getData(request):
     # sample way to return json object as a get request 
     # response 
 
-    person = {"name": "hello", "sirNAme":"world"}
+    #person = {"name": "hello", "sirNAme":"world"}
+
+    data = request.data
     
     return Response(person)
 
