@@ -43,16 +43,23 @@ class EnrollmentLog(models.Model):
 class Question(models.Model):
     "This is a question in a particular forum (for the Course which is a Foreign Key)"
     Course = models.ForeignKey('Course', on_delete=models.CASCADE)
+    Student = models.ForeignKey('Student', on_delete=models.CASCADE, default=1)
     textContent = models.CharField(max_length=500)
     dateAndTimePosted = models.DateTimeField(auto_now_add=True)
     isAnswered = models.BooleanField(default=False)
+    def __str__(self)->str:
+        return f'{self.textContent}'
+
 
 class Answer(models.Model):
     'This is the answer on a particular question'
     Question =  models.ForeignKey('Question', on_delete=models.CASCADE)
+    Student = models.ForeignKey('Student', on_delete=models.CASCADE,  default=1)
     textContent = models.CharField(max_length=500)
     dateAndTimePosted = models.DateTimeField(auto_now_add=True)
     netVotes = models.IntegerField(default=0)
+    def __str__(self)->str:
+        return f'{self.textContent}'
 
 # class Reply(models.Model):
 #     Answer =  models.ForeignKey('Answer', on_delete=models.CASCADE)
@@ -63,6 +70,8 @@ class Answer(models.Model):
 class VoteLog(models.Model):
     'VoteLog keeps track of every Vote.'
     Student = models.ForeignKey('Student', on_delete=models.CASCADE)
-    Answer = models.ForeignKey('Answer', on_delete=models.CASCADE) 
+    Answer = models.ForeignKey('Answer', on_delete=models.CASCADE)
+    def __str__(self)->str:
+        return f'{self.Student.name} : {self.Answer.textContent}'
 
     
