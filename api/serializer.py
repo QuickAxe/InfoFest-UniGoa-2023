@@ -17,3 +17,15 @@ class CourseContentSerializer(serializers.Serializer):
     # class Meta:
     #     model = CourseContent
     #     fields = "__all__"
+
+class QuizContentSerializer(serializers.Serializer):
+    
+    q1 = serializers.CharField(max_length=100)
+
+#-----------------------------------------------------
+    q1A = serializers.CharField(max_length=100)
+    q1B = serializers.CharField(max_length=100)
+    q1C = serializers.CharField(max_length=100)
+    q1D = serializers.CharField(max_length=100)
+#-----------------------------------------------------
+    correctAns = serializers.IntegerField(default=3)

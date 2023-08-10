@@ -10,4 +10,5 @@ admin.site.register(EnrollmentLog)
 admin.site.register(Question)
 admin.site.register(Answer)
 admin.site.register(VoteLog)
+admin.site.register(QuizContent)
 

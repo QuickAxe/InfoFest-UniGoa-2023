@@ -6,5 +6,6 @@ urlpatterns = [
     path('addCourse/', views.addCourse),
     path('addCourseContent/', views.addCourseContent),
     path('getStudentCourse/', views.getStudentCourse),
-    
+    path('getQuiz/', views.getQuiz),
+
 ]

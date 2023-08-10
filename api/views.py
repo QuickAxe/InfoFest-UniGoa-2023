@@ -75,6 +75,28 @@ def getStudentCourse(request):
 
     return Response(response)
 
+@api_view(['GET'])
+def getQuiz(request):
+   
+    data = request.data
+    courseVal = request.query_params.get('courseVal')
+    
+    course = Course.objects.get(pk=courseVal)
+    quizContent = QuizContent.objects.filter(quiz=course.id)
+
+    response = []
+    
+    # response.append({"TeacherName":course.Teacher.name})
+    course = CourseSerializer(course)
+
+    response.append(course.data)
+
+    for s in quizContent:
+        s = QuizContentSerializer(s)
+        response.append(s.data)
+
+    return Response(response)
+
 # @api_view(['GET'])
 # def get(request):
 #     course = Course.objects.filter()

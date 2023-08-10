@@ -21,6 +21,7 @@ class Course(models.Model):
     name = models.CharField(max_length=50)
     # TeacherName = models.CharField(max_length=50)
     Teacher = models.ForeignKey('Teacher', on_delete=models.PROTECT)
+
     def __str__(self) -> str:
         return f"{self.name}"
 
@@ -74,5 +75,31 @@ class VoteLog(models.Model):
     Answer = models.ForeignKey('Answer', on_delete=models.CASCADE)
     def __str__(self)->str:
         return f'{self.Student.name} : {self.Answer.textContent}'
-
     
+
+
+
+class QuizContent(models.Model):
+
+    quiz = models.ForeignKey('Course', on_delete=models.CASCADE)
+    
+    q1 = models.CharField(max_length=100)
+
+#-----------------------------------------------------
+    q1A = models.CharField(max_length=100)
+    q1B = models.CharField(max_length=100)
+    q1C = models.CharField(max_length=100)
+    q1D = models.CharField(max_length=100)
+#-----------------------------------------------------
+    correctAns = models.IntegerField(default=3)
+
+
+
+# class Quiz(models.Module):
+     
+#     course = models.ForeignKey('Course', on_delete=models.CASCADE)
+#     q1 = models.CharField(max_length=100)
+#     q2 = models.CharField(max_length=100)
+#     q3 = models.CharField(max_length=100)
+#     q4 = models.CharField(max_length=100)
+#     q5 = models.CharField(max_length=100)
