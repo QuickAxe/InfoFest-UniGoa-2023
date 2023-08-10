@@ -8,8 +8,17 @@ def getData(request):
     # sample way to return json object as a get request 
     # response 
 
-    person = {'name': 'hello', 'sirNAme':'world'}
+    person = {"name": "hello", "sirNAme":"world"}
     
     return Response(person)
+
+@api_view(['POST'])
+def addItem(request):
+
+    # data holds the json sent as part of the post request
+    data = request.data
+    print(data)
+
+    return Response()
 
 
