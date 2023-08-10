@@ -12,7 +12,7 @@ def getData(request):
 
     data = request.data
     
-    return Response(person)
+    return Response()
 
 @api_view(['POST'])
 def addItem(request):
