@@ -4,18 +4,6 @@ import requests
 import json
 
 #-------------------------------------------------------functions
-def format_text(ct:str):
-    i = 0
-    text = ['']
-    ct = ct.split(' ')
-    for word in ct:
-        if((len(text[i]) + len(word) )< 120):
-            text[i]= text[i] + ' ' + word
-        else:
-            text.append(word)
-            i+=1
-    text = '\n'.join(text[:10])
-    return text
 
 def go_to_url(url):
     def run_url():
@@ -42,33 +30,9 @@ window = tk.Tk()
 window.geometry("1000x600")
 window.title('EDU HUB')
 window.configure(bg='#353535')
-rows = 5
-cols = 5
-for i in range(rows):
-    window.rowconfigure(i,weight=1)
-for i in range(cols):
-    window.columnconfigure(i,weight=1)
 
 #------------------------------------------------------dummy data
-data = [
-    {
-        "name":"Python",
-        "url" :"https://filesamples.com/samples/document/txt/sample3.txt"
-    },
-    {
-        "name":"DBMS",
-        "url" :"http:/URL"
-    },
-    {
-        "name":"FLAT",
-        "url" :"http:/URL"
-    },
-    {
-        "name":"MADF",
-        "url" :"http:/URL"
-    },
-    
-]
+
 
 
 #------------------------------------------------------creator variables
@@ -77,26 +41,10 @@ creator_name_label = ttk.Label(window,textvariable=creator_name_var,font = 'Aria
 creator_name_label.grid(row = 0,column=0,sticky="w")
 
 #------------------------------------------------------display made courses
-course_urls = []
-course_buttons = []
-course_text_vars = []
+material_urls = []
+material_buttons = []
+material_text_vars = []
 
-button_style = ttk.Style()
-button_style.configure('my.TButton', font=('Tahoma', 12))
-
-for i in range(len(data)):
-    course_urls.append(data[i]["url"])
-
-    text_var = tk.StringVar(value=data[i]["name"])
-    button = ttk.Button(window,textvariable=text_var,style="my.TButton",command=go_to_url(course_urls[i]))
-
-    course_text_vars.append(text_var)
-    course_buttons.append(button)
-
-
-for i in range(len(data)):
-    button = course_buttons[i]
-    button.grid(row = 1+i,column=1,sticky="w")
 
 
 
