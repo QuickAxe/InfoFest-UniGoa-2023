@@ -29,8 +29,8 @@ class CourseContent(models.Model):
     Course = models.ForeignKey('Course', on_delete=models.CASCADE)
     videoURL = models.URLField(max_length=200, default='example.com')
     textContent = models.CharField(max_length=500, default="lorem ipsum dolor set")
-    def __str__(self) -> str:
-        return f"{self.textContent}"
+    # def __str__(self) -> str:
+    #     return f"{self.textContent} mmm"
 
 class EnrollmentLog(models.Model):
     'This stores the log of a student enrolling into a course'
