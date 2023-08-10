@@ -58,16 +58,20 @@ def getStudentCourse(request):
    
     data = request.data
     studentID = request.query_params.get('studentID')
+
     student = Student.objects.get(pk=studentID)
     
-    enrolLogs = EnrollmentLog.objects.filter(Student = student )    
+    enrolLogs = EnrollmentLog.objects.filter(Student = student )
+    
     response = []
 
     for s in enrolLogs:     
         # course = Course.objects.get(pk=s.Course)
-        response.append(s.progress)
+        t = {"progress" : s.progress}
         s = CourseSerializer(s.Course)
-        response.append(s.data)
+        t.update(s.data)
+        response.append(t)
+        
 
     return Response(response)
 
