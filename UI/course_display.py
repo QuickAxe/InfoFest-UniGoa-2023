@@ -2,28 +2,26 @@ import tkinter as tk
 from tkinter import ttk
 import requests
 import json
-from tkinter import scrolledtext
 
 #-------------------------------------------------------functions
-def format_text(ct:str):
-    i = 0
-    text = ['']
-    ct = ct.split(' ')
-    for word in ct:
-        if((len(text[i]) + len(word) )< 120):
-            text[i]= text[i] + ' ' + word
-        else:
-            text.append(word)
-            i+=1
-    text = '\n'.join(text[:10])
-    return text
 
 def go_to_url(url):
     def run_url():
-        course_text_ = requests.get(url).text
-        course_text_ = format_text(course_text_)
-        text_var.set(course_text_)
-        
+        # course_text_ = requests.get(url).text
+        # course_text_ = format_text(course_text_)
+        # display_text_var.set(course_text_)
+        # print(text_area.get(0))
+
+        if(url=='new_page'):
+            print('new_page')
+        else:
+            try:
+                f = open(display_text_var.get())
+                print(f.read())
+                
+            except:
+                display_text_var.set('Invalid File!')
+        # print(display_text_var.get())
     return run_url
 
 
@@ -90,14 +88,15 @@ for i in range(len(data)):
 
 
 
-#------------------------------------------------------the text display
-# text_var = tk.StringVar()
-# display_text = ttk.Entry(window,background="#616161",textvariable=text_var)
-# display_text.grid(row = 1,column=2,rowspan=5,columnspan=2)
-# text_area = scrolledtext.ScrolledText(window,width = 100,height = 200,font = ("Times New Roman",15))
-# text_area.grid(row = 2,column=2)
+#------------------------------------------------------the directory input
+display_text_var = tk.StringVar(value=r"C:\Users\Parth\OneDrive\Desktop\hackathon\P-slayers\UI\data.txt")
+# text_area = tk.Entry(window,textvariable=display_text_var,font=('Tahoma', 12),width=50)
+# text_area.grid(row = 1,column=1,columnspan=2,sticky='e')
 
 
+#------------------------------------------------------the button to create a new course
+new_course_button = ttk.Button(window,text='New Course',style="my.TButton",command=go_to_url("new_page"))
+new_course_button.grid(row = 1,column=2,sticky='e')
 #pg buttons
 
 
