@@ -21,6 +21,11 @@ def getCourse(request):
 
     crs = CourseContent.objects.filter(Course=crsVal)
 
+    # for i in crs:
+    #     i['videoURL']
+
+
+
     print(crs)
 
 
@@ -39,7 +44,19 @@ def addCourse(request):
     # data holds the json sent as part of the post request
     data = request.data
 
+    crs = Course(name=data['name'], teacher=data['teacher'])
+    crs.add()
     
+    id = crs.id
+    n = data['number']
+
+    for i in range(n):
+        crsContent = CourseContent(Course=id, )
+    
+
+    
+    crsContent = CourseContent()
+
 
     print(data)
 
