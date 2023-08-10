@@ -1,6 +1,8 @@
 from rest_framework.response import Response 
 from rest_framework.decorators import api_view 
 from main.models import *
+from api.serializer import *
+from rest_framework.renderers import JSONRenderer
 # import sys 
 
 # sys.path.insert(1, '')
@@ -17,19 +19,28 @@ def getCourse(request):
 
     data = request.data
 
+
     courseVal = request.query_params.get('courseVal')
-    course = Course.objects.get(name=courseVal)
+
+    print(courseVal)
+    
+    course = Course.objects.get(pk=courseVal)
     courseContent = CourseContent.objects.filter(Course=courseVal)
 
-    response = {"course":course, "courseContent":courseContent}
+    course = CourseSerializer(course)
+    courseContent = CourseContentSerializer(courseContent)
 
 
-    
+    course.update(courseContent)
     # for i in course:
     #     i['videoURL']
+    response = JSONRenderer().render(course)
 
-    print(course)
+    
 
+
+
+    # response = json.dumps(response)
     return Response(response)
 
 @api_view(['POST'])
@@ -57,4 +68,8 @@ def addCourseContent(request):
     print(data)
     return Response()
 
-
+@api_view(['GET'])
+def get(request):
+    course = Course.objects.filter()
+    print(course[0].pk)
+    return Response()

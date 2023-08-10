@@ -21,7 +21,7 @@ class Course(models.Model):
     name = models.CharField(max_length=50)
     Teacher = models.ForeignKey('Teacher', on_delete=models.PROTECT)
     def __str__(self) -> str:
-        return f"{self.name}"
+        return f"{self.name} mmmmm"
 
 
 class CourseContent(models.Model):
