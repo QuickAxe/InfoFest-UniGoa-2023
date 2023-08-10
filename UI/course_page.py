@@ -3,7 +3,6 @@ from tkinter import ttk
 import requests
 import json
 
-
 #reads the title from the file
 def read():
     read = open(r"data.txt").read().split('\n')
@@ -20,7 +19,8 @@ def url_loader(url):
     
 window = tk.Tk()
 window.configure(bg='#353535')
-window.title(read())
+# window.title(read())
+window.title('EDU HUB')
 window.geometry("1000x600")
 
 
