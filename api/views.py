@@ -45,16 +45,14 @@ def addCourse(request):
 def addCourseContent(request):
 
     data = request.data
-
-    course = CourseContent.objects.filter(Course=data['course'])
+    course = Course.objects.get(name=data['course'])
     
     id = course.id
 
-    courseContent = CourseContent(videoURL=data['URL'], textContent = data['textContent'] )
-    courseContent.type_id = id
+    courseContent = CourseContent(Course = course, videoURL=data['URL'], textContent = data['textContent'] )
+    courseContent.pk = id
 
-    courseContent.save() 
-    print(data)
+    courseContent.save()
     return Response()
 
 # @api_view(['GET'])
