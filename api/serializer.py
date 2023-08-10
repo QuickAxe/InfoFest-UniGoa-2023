@@ -3,6 +3,7 @@ from main.models import *
 
 class CourseSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=50)
+    Teacher = serializers.CharField(max_length=50)
 
     # class Meta:
     #     model = Course

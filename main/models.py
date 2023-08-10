@@ -6,7 +6,7 @@ class Student(models.Model):
     email = models.EmailField(max_length=200)
     passwd = models.CharField(max_length=50, default="password")
     def __str__(self) -> str:
-        return f"{self.name} {self.email}"
+        return f"{self.name}"
 
 class Teacher(models.Model):
     'Teacher'
@@ -14,14 +14,15 @@ class Teacher(models.Model):
     email = models.EmailField(max_length=200)
     passwd = models.CharField(max_length=50, default="password")
     def __str__(self) -> str:
-        return f"{self.name} {self.email}"
+        return f"{self.name}"
  
 class Course(models.Model):
     'Course'
     name = models.CharField(max_length=50)
+    # TeacherName = models.CharField(max_length=50)
     Teacher = models.ForeignKey('Teacher', on_delete=models.PROTECT)
     def __str__(self) -> str:
-        return f"{self.name} mmmmm"
+        return f"{self.name}"
 
 
 class CourseContent(models.Model):

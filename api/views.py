@@ -8,8 +8,6 @@ from api.serializer import *
 @api_view(['GET'])
 def getCourse(request):
    
-    # sample way to return json object as a get request 
-
     data = request.data
     courseVal = request.query_params.get('courseVal')
 
@@ -18,12 +16,9 @@ def getCourse(request):
     course = Course.objects.get(pk=courseVal)
     courseContent = CourseContent.objects.filter(Course=courseVal)
 
-
     response = []
     
-
-    
-
+    # response.append({"TeacherName":course.Teacher.name})
     course = CourseSerializer(course)
 
     response.append(course.data)
@@ -31,19 +26,6 @@ def getCourse(request):
     for s in courseContent:
         s = CourseContentSerializer(s)
         response.append(s.data)
- 
-
-
-    print(response)
-    # print(courseContent.data)
-
-    # course = model_to_dict(course)
-    # courseContent = model_to_dict(courseContent)
-
-    # print(type(course))
-    # print(type(courseContent))
-
-    # response = JSONRenderer().render(course)
 
     return Response(response)
 
@@ -72,8 +54,8 @@ def addCourseContent(request):
     print(data)
     return Response()
 
-@api_view(['GET'])
-def get(request):
-    course = Course.objects.filter()
-    print(course[0].pk)
-    return Response()
+# @api_view(['GET'])
+# def get(request):
+#     course = Course.objects.filter()
+#     print(course[0].pk)
+#     return Response()
