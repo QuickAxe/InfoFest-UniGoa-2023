@@ -10,8 +10,6 @@ def getCourse(request):
    
     data = request.data
     courseVal = request.query_params.get('courseVal')
-
-    print(courseVal)
     
     course = Course.objects.get(pk=courseVal)
     courseContent = CourseContent.objects.filter(Course=courseVal)
@@ -54,6 +52,23 @@ def addCourseContent(request):
 
     courseContent.save()
     return Response()
+
+@api_view(['GET'])
+def getStudentCourse(request):
+   
+    data = request.data
+    studentID = request.query_params.get('studentID')
+    student = Student.objects.get(pk=studentID)
+    
+    enrolLogs = EnrollmentLog.objects.filter(Student = student )    
+    response = []
+
+    for s in enrolLogs:     
+        # course = Course.objects.get(pk=s.Course)
+        s = CourseSerializer(s.Course)
+        response.append(s.data)
+
+    return Response(response)
 
 # @api_view(['GET'])
 # def get(request):
