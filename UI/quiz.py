@@ -9,49 +9,54 @@ def quiz_window(string):
     window.geometry("1000x600")
     window.title('EDU HUB')
     window.configure(bg='#353535')
-    data =[
-        {
-            "question":"Question to be displayed ?",
-            "op1":"Option 1",
-            "op2":"Option 2",
-            "op3":"Option 3",
-            "op4":"Option 4",
-            "cor_opt":1
-        },
-        {
-            "question":"Question to be  ?",
-            "op1":"Option 1",
-            "op2":"Option 2",
-            "op3":"Option 3",
-            "op4":"Option 4",
-            "cor_opt":1
-        },
-        {
-            "question":"Question to be displayed ?",
-            "op1":"Option 1",
-            "op2":"Option 2",
-            "op3":"Option 3",
-            "op4":"Option 4",
-            "cor_opt":1
-        },
-        {
-            "question":"Question to be  ?",
-            "op1":"Option 1",
-            "op2":"Option 2",
-            "op3":"Option 3",
-            "op4":"Option 4",
-            "cor_opt":1
-        },
-        {
-            "question":"Question to be displayed ?",
-            "op1":"Option 1",
-            "op2":"Option 2",
-            "op3":"Option 3",
-            "op4":"Option 4",
-            "cor_opt":1
-        },
+
+    data = requests.get('http://127.0.0.1:8000/getQuiz/?courseVal=1').text
+    data = json.loads(data)
+    teacher = data[0]
+    data = data[1:]
+    # data =[
+    #     {
+    #         "question":"Question to be displayed ?",
+    #         "op1":"Option 1",
+    #         "op2":"Option 2",
+    #         "op3":"Option 3",
+    #         "op4":"Option 4",
+    #         "cor_opt":1
+    #     },
+    #     {
+    #         "question":"Question to be  ?",
+    #         "op1":"Option 1",
+    #         "op2":"Option 2",
+    #         "op3":"Option 3",
+    #         "op4":"Option 4",
+    #         "cor_opt":1
+    #     },
+    #     {
+    #         "question":"Question to be displayed ?",
+    #         "op1":"Option 1",
+    #         "op2":"Option 2",
+    #         "op3":"Option 3",
+    #         "op4":"Option 4",
+    #         "cor_opt":1
+    #     },
+    #     {
+    #         "question":"Question to be  ?",
+    #         "op1":"Option 1",
+    #         "op2":"Option 2",
+    #         "op3":"Option 3",
+    #         "op4":"Option 4",
+    #         "cor_opt":1
+    #     },
+    #     {
+    #         "question":"Question to be displayed ?",
+    #         "op1":"Option 1",
+    #         "op2":"Option 2",
+    #         "op3":"Option 3",
+    #         "op4":"Option 4",
+    #         "cor_opt":1
+    #     },
         
-    ]
+    # ]
 
 
     q_number = tk.IntVar(value=0)
@@ -70,13 +75,13 @@ def quiz_window(string):
     option3_var = ttk.Radiobutton(window,textvariable=option3text,value=3,command=lambda:option_selected.set(3))
     option4_var = ttk.Radiobutton(window,textvariable=option4text,value=4,command=lambda:option_selected.set(4))
 
-    question_text.set(f'Question {1} : '+data[0]['question'])
-    option1text.set(data[0]["op1"])
-    option2text.set(data[0]["op2"])
-    option3text.set(data[0]["op3"])
-    option4text.set(data[0]["op4"])
+    question_text.set(f'Question {1} : '+data[0]['q1'])
+    option1text.set(data[0]["q1A"])
+    option2text.set(data[0]["q1B"])
+    option3text.set(data[0]["q1C"])
+    option4text.set(data[0]["q1D"])
 
-    
+
 
     def change_qustion(change:int):
         def load_question():
@@ -86,11 +91,11 @@ def quiz_window(string):
             elif(q_number.get()==4 and change == 1):
                 return
             q_number.set(q_number.get()+change)
-            question_text.set(f'Question {q_number+1} : '+data[q_number.get()]['question'])
-            option1text.set(data[q_number.get()]["op1"])
-            option2text.set(data[q_number.get()]["op2"])
-            option3text.set(data[q_number.get()]["op3"])
-            option4text.set(data[q_number.get()]["op4"])
+            question_text.set(f'Question {q_number.get()+1} : '+data[q_number.get()]['q1'])
+            option1text.set(data[q_number.get()]["q1A"])
+            option2text.set(data[q_number.get()]["q1B"])
+            option3text.set(data[q_number.get()]["q1C"])
+            option4text.set(data[q_number.get()]["q1D"])
         return load_question
     
     question_var.place(x= 200,y = 100)
