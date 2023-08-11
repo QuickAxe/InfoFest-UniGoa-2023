@@ -6,7 +6,8 @@ import json
 def login_signin_window(string):
 
     window = tk.Tk()
-    window.title('w2')
+    window.configure(bg='#353535')
+    window.title('EDU HUB')
     window.geometry('1000x600')
     #functions
     def check_email_password(email,password):

@@ -14,49 +14,6 @@ def quiz_window(string):
     data = json.loads(data)
     teacher = data[0]
     data = data[1:]
-    # data =[
-    #     {
-    #         "question":"Question to be displayed ?",
-    #         "op1":"Option 1",
-    #         "op2":"Option 2",
-    #         "op3":"Option 3",
-    #         "op4":"Option 4",
-    #         "cor_opt":1
-    #     },
-    #     {
-    #         "question":"Question to be  ?",
-    #         "op1":"Option 1",
-    #         "op2":"Option 2",
-    #         "op3":"Option 3",
-    #         "op4":"Option 4",
-    #         "cor_opt":1
-    #     },
-    #     {
-    #         "question":"Question to be displayed ?",
-    #         "op1":"Option 1",
-    #         "op2":"Option 2",
-    #         "op3":"Option 3",
-    #         "op4":"Option 4",
-    #         "cor_opt":1
-    #     },
-    #     {
-    #         "question":"Question to be  ?",
-    #         "op1":"Option 1",
-    #         "op2":"Option 2",
-    #         "op3":"Option 3",
-    #         "op4":"Option 4",
-    #         "cor_opt":1
-    #     },
-    #     {
-    #         "question":"Question to be displayed ?",
-    #         "op1":"Option 1",
-    #         "op2":"Option 2",
-    #         "op3":"Option 3",
-    #         "op4":"Option 4",
-    #         "cor_opt":1
-    #     },
-        
-    # ]
 
 
     q_number = tk.IntVar(value=0)
@@ -67,13 +24,18 @@ def quiz_window(string):
     option3text = tk.StringVar()
     option4text = tk.StringVar()
     
-    option_selected = tk.IntVar()
+    option_selected = tk.StringVar()
+
+    ans = [0,0,0,0,0]
+    def update_ans():
+        ans[q_number.get()] = int(option_selected.get())
+        print(ans)
 
     question_var = ttk.Label(window,textvariable=question_text,font = ('Arial_Rounded_MT_Bold',12))#,background='#353535',foreground='#FFFFFF')
-    option1_var = ttk.Radiobutton(window,textvariable=option1text,value=1,command=lambda:option_selected.set(1))
-    option2_var = ttk.Radiobutton(window,textvariable=option2text,value=2,command=lambda:option_selected.set(2))
-    option3_var = ttk.Radiobutton(window,textvariable=option3text,value=3,command=lambda:option_selected.set(3))
-    option4_var = ttk.Radiobutton(window,textvariable=option4text,value=4,command=lambda:option_selected.set(4))
+    option1_var = ttk.Radiobutton(window,variable=option_selected,textvariable=option1text,value=1,command=update_ans)
+    option2_var = ttk.Radiobutton(window,variable=option_selected,textvariable=option2text,value=2,command=update_ans)
+    option3_var = ttk.Radiobutton(window,variable=option_selected,textvariable=option3text,value=3,command=update_ans)
+    option4_var = ttk.Radiobutton(window,variable=option_selected,textvariable=option4text,value=4,command=update_ans)
 
     question_text.set(f'Question {1} : '+data[0]['q1'])
     option1text.set(data[0]["q1A"])
@@ -81,11 +43,10 @@ def quiz_window(string):
     option3text.set(data[0]["q1C"])
     option4text.set(data[0]["q1D"])
 
-
+    
 
     def change_qustion(change:int):
         def load_question():
-            print(change)
             if(q_number.get()==0 and change==-1):
                 return
             elif(q_number.get()==4 and change == 1):
@@ -104,8 +65,20 @@ def quiz_window(string):
     option3_var.place(x = 300,y = 400)
     option4_var.place(x = 300,y = 450)
 
-    buttonL = ttk.Button(window,text = "Previous Question",command=change_qustion(-1)).place(x = 100,y = 150)
-    buttonR = ttk.Button(window,text = "Next Question",command=change_qustion(1)).place(x = 900,y = 150)
+
+    def submit():
+        total=0
+        for ind,val in enumerate(ans):
+            if (val == data[ind]['correctAns']):
+                total+=1
+        window.destroy()
+        popup = tk.Tk()
+        ttk.Label(popup,text=f"Total Score = {total}").pack()
+        popup.mainloop()
+        
+    ttk.Button(window,text = "Previous Question",command=change_qustion(-1)).place(x = 100,y = 150)
+    ttk.Button(window,text = "Next Question",command=change_qustion(1)).place(x = 900,y = 150)
     
+    ttk.Button(window,text = 'Submit',command=submit).place(x = 600,y=200)
 
     window.mainloop()

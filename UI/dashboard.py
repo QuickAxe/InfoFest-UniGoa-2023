@@ -7,34 +7,34 @@ import json
 def student_dachboard_window(string):
 
     def go_to_url(url):
-        print(url)
         pass
     window = tk.Tk()
     window.geometry('1000x600')
+    window.configure(bg='#353535')
     # frame = ttk.Frame(window)
-    # window.configure(bg='#353535')
     # window.title(read())
     # window.geometry("1000x600")
 
 
-    # d = requests.get("http://127.0.0.1:8000/get")
-    s = [
-        {
-            'lat': 'Physics',
-            'longitude':'37',
-            'url':'URL'
-        },
-        {
-            'lat': 'Physics',
-            'longitude':'37',
-            'url':'URL'
-        },
-        {
-            'lat': 'Physics',
-            'longitude':'37',
-            'url':'URL'
-        }
-    ]
+    d = requests.get("http://127.0.0.1:8000/getStudentCourse/?studentID=1").text
+    s=json.loads(d)
+    # s = [
+    #     {
+    #         'lat': 'Physics',
+    #         'longitude':'37',
+    #         'url':'URL'
+    #     },
+    #     {
+    #         'lat': 'Physics',
+    #         'longitude':'37',
+    #         'url':'URL'
+    #     },
+    #     {
+    #         'lat': 'Physics',
+    #         'longitude':'37',
+    #         'url':'URL'
+    #     }
+    # ]
 
 
     button1_textvar=tk.StringVar()
@@ -87,3 +87,6 @@ def student_dachboard_window(string):
 
     # frame.pack()
     window.mainloop()
+string = []
+student_dachboard_window(string)
+print(string)

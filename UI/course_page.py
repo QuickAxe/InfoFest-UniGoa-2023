@@ -13,8 +13,8 @@ def course_page_window(string):
         print(material_urls[course])
         
     window = tk.Tk()
-    window.configure(bg='#353535')
     # window.title(read())
+    window.configure(bg='#353535')
     window.title('EDU HUB')
     window.geometry("1000x600")
 

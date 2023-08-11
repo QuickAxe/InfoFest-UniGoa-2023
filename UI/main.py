@@ -30,10 +30,10 @@ string = ["corret"]
 
 login_sign_in_farme = 0
 
-# show_login_signin()
-# print('string = ',string)
-# if(string[0] == 'correct'):
-#     show_student_dashboard()
-# show_course_page()
-show_quiz_window()
+show_login_signin()
+print('string = ',string)
+if(string[0] == 'correct'):
+    show_student_dashboard()
+    # show_course_page()
+    # show_quiz_window()
 # window.mainloop()
