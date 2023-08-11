@@ -1,2 +1,3 @@
-dow,width = 100,height = 200,font = ("Times New Roman",15))
-# text_area.grid(row = 2,column=2)
+ngVar()
+# display_text = ttk.Entry(window,background="#616161",textvariable=text_var)
+# display_text.grid(row = 1,column

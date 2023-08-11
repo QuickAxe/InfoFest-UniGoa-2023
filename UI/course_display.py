@@ -5,6 +5,11 @@ import json
 
 #-------------------------------------------------------functions
 
+def reqest_made_courses():
+    string = requests.get("http://127.0.0.1:8000/getCourse/?courseVal=1").text
+    dictionary = json.loads(string)
+    return dictionary
+
 def go_to_url(url):
     def run_url():
         # course_text_ = requests.get(url).text
@@ -37,30 +42,12 @@ for i in range(rows):
 for i in range(cols):
     window.columnconfigure(i,weight=1)
 
-#------------------------------------------------------dummy data
-data = [
-    {
-        "name":"Python",
-        "url" :"https://filesamples.com/samples/document/txt/sample3.txt"
-    },
-    {
-        "name":"DBMS",
-        "url" :"http:/URL"
-    },
-    {
-        "name":"FLAT",
-        "url" :"http:/URL"
-    },
-    {
-        "name":"MADF",
-        "url" :"http:/URL"
-    },
-    
-]
+#------------------------------------------------------data
+data = reqest_made_courses()
 
 
 #------------------------------------------------------creator variables
-creator_name_var = tk.StringVar(value="Sherica")
+creator_name_var = tk.StringVar(value=data[0]['name'])
 creator_name_label = ttk.Label(window,textvariable=creator_name_var,font = 'Arial_Rounded_MT_Bold 54',padding=10,background="#94E16B")
 creator_name_label.grid(row = 0,column=0,sticky="w")
 
@@ -72,17 +59,17 @@ course_text_vars = []
 button_style = ttk.Style()
 button_style.configure('my.TButton', font=('Tahoma', 12))
 
-for i in range(len(data)):
-    course_urls.append(data[i]["url"])
+for i in range(1,len(data)):
+    course_urls.append(data[i]["videoURL"])
 
-    text_var = tk.StringVar(value=data[i]["name"])
-    button = ttk.Button(window,textvariable=text_var,style="my.TButton",command=go_to_url(course_urls[i]))
+    text_var = tk.StringVar(value=data[i]["textContent"])
+    button = ttk.Button(window,textvariable=text_var,style="my.TButton",command=go_to_url(course_urls[i-1]))
 
     course_text_vars.append(text_var)
     course_buttons.append(button)
 
 
-for i in range(len(data)):
+for i in range(len(data)-1):
     button = course_buttons[i]
     button.grid(row = 1+i,column=1,sticky="w")
 
@@ -103,3 +90,4 @@ new_course_button.grid(row = 1,column=2,sticky='e')
 
 #------------------------------------------------------mail loop
 window.mainloop()
+
