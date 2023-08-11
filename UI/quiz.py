@@ -31,7 +31,7 @@ def quiz_window(string):
         ans[q_number.get()] = int(option_selected.get())
         print(ans)
 
-    question_var = ttk.Label(window,textvariable=question_text,font = ('Arial_Rounded_MT_Bold',12))#,background='#353535',foreground='#FFFFFF')
+    question_var = ttk.Label(window,textvariable=question_text,font = ('Arial_Rounded_MT_Bold',24))#,background='#353535',foreground='#FFFFFF')
     option1_var = ttk.Radiobutton(window,variable=option_selected,textvariable=option1text,value=1,command=update_ans)
     option2_var = ttk.Radiobutton(window,variable=option_selected,textvariable=option2text,value=2,command=update_ans)
     option3_var = ttk.Radiobutton(window,variable=option_selected,textvariable=option3text,value=3,command=update_ans)
@@ -59,11 +59,11 @@ def quiz_window(string):
             option4text.set(data[q_number.get()]["q1D"])
         return load_question
     
-    question_var.place(x= 200,y = 100)
-    option1_var.place(x = 300,y = 300)
-    option2_var.place(x = 300,y = 350)
-    option3_var.place(x = 300,y = 400)
-    option4_var.place(x = 300,y = 450)
+    question_var.place(x= 150,y = 100)
+    option1_var.place(x = 150,y = 20+200)
+    option2_var.place(x = 150,y = 50+200)
+    option3_var.place(x = 150,y = 80+200)
+    option4_var.place(x = 150,y = 110+200)
 
 
     def submit():
@@ -76,9 +76,11 @@ def quiz_window(string):
         ttk.Label(popup,text=f"Total Score = {total}").pack()
         popup.mainloop()
         
-    ttk.Button(window,text = "Previous Question",command=change_qustion(-1)).place(x = 100,y = 150)
-    ttk.Button(window,text = "Next Question",command=change_qustion(1)).place(x = 900,y = 150)
+    ttk.Button(window,text = "Previous Question",command=change_qustion(-1)).place(x = 20,y = 20)
+    ttk.Button(window,text = "Next Question",command=change_qustion(1)).place(x = 900,y = 20)
     
-    ttk.Button(window,text = 'Submit',command=submit).place(x = 600,y=200)
+    ttk.Button(window,text = 'Submit',command=submit).place(x = 800,y=500)
 
     window.mainloop()
+
+quiz_window([""])

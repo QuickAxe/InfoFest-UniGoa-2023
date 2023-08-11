@@ -9,8 +9,19 @@ def course_page_window(string):
         # print(course_material_table.item(course_material_table.selection()[0])['values'])
         item = course_material_table.selection()[0]
         course = course_material_table.item(item)['values'][0]
-        course=course.replace('_',' ')
-        print(material_urls[course])
+        course = course.split('_')
+        text = ['']
+        i=0
+        for word in course:
+            if len(text[i]) + len(word) > 80:
+                text.append(word)
+                i+=1
+            else:
+                text[i]= text[i]+' '+word
+        text = '\n'.join(text)
+        print(text)
+
+        ttk.Label(window,text =text,font=('Arial_Rounded_MT_Bold',15)).place(x = 250,y = 250)
         
     window = tk.Tk()
     # window.title(read())
@@ -19,9 +30,11 @@ def course_page_window(string):
     window.geometry("1000x600")
 
 
-    # d = requests.get("http://127.0.0.1:8000/get")
-    # s = json.loads(d.text)
-
+    d = requests.get(string[0])
+    s = json.loads(d.text)
+    other = s[0]
+    s = s[1:]
+    # print(other)
 
     window.columnconfigure(0,weight=1)
     window.columnconfigure(1,weight=1)
@@ -38,22 +51,32 @@ def course_page_window(string):
     window.rowconfigure(6,weight=1)
     window.rowconfigure(7,weight=1)
 
-    stud_name_var = tk.StringVar(value = 'parth')
-    student_name = ttk.Label(window,textvariable=stud_name_var,background="#94E16B",font = 'Arial_Rounded_MT_Bold 54',padding=10)
-    student_name.grid(row = 0,column=1,columnspan=1,sticky="w")
+    stud_name_var = tk.StringVar(value = f"Teacher : {other['Teacher']}"+f" | Subject : {other['name']}")
+    student_name = ttk.Label(window,textvariable=stud_name_var,background="#94E16B",font = 'Arial_Rounded_MT_Bold 25',padding=10)
+    student_name.place(x = 20,y = 20)
 
-    course_name_var = tk.StringVar(value = 'Physics')
-    course_name_label = ttk.Label(window,textvariable=course_name_var,background="#94E16B",font = 'Arial_Rounded_MT_Bold 42',padding=10)
-    course_name_label.grid(row = 0,column=4,columnspan=1,sticky="w")
+    # course_name_var = tk.StringVar(value = f"Subject : {other['name']}")
+    # course_name_label = ttk.Label(window,textvariable=course_name_var,background="#94E16B",font = 'Arial_Rounded_MT_Bold 25',padding=10)
+    # course_name_label.place(x = 500,y = 20)
 
-    course_material_list=["Video 1","Video 2","Video 3","Video 4","Video 5","Video 6","Video 7","Video 8","Video 9","Video 10","Video 11","Video 12","Video 13","Video 14","Video 15","Video 16","Video 17","Video 18","Video 19","Video 20"]
-    course_material_table = ttk.Treeview(window,columns=("Videos "),show='headings',selectmode='browse')
+
+    course_material_list=[]
+    for i in s:
+        course_material_list.append(i['textContent'])
+    # print("course_material_list",course_material_list)
+    course_material_table = ttk.Treeview(window,columns=("Videos"),show='headings',selectmode='browse')
     for i in range(len(course_material_list)):
-        # course_material_table.insert(parent='',index='end',values=(course_material_list[i].replace(' ','⠀')))
         course_material_table.insert(parent='',index='end',values=(course_material_list[i].replace(' ','_')))
     course_material_table.grid(row=2,column=0,columnspan=1,sticky="w",ipady=50)
-    material_urls = {'Video 1': 'URL 1', 'Video 2': 'URL 2', 'Video 3': 'URL 3', 'Video 4': 'URL 4', 'Video 5': 'URL 5', 'Video 6': 'URL 6', 'Video 7': 'URL 7', 'Video 8': 'URL 8', 'Video 9': 'URL 9', 'Video 10': 'URL 10', 'Video 11': 'URL 11', 'Video 12': 'URL 12', 'Video 13': 'URL 13', 'Video 14': 'URL 14', 'Video 15': 'URL 15', 'Video 16': 'URL 16', 'Video 17': 'URL 17', 'Video 18': 'URL 18', 'Video 19': 'URL 19', 'Video 20': 'URL 20'}  
+    material_urls = {} 
+    for i in s:
+        material_urls.update({i['textContent']:i['videoURL']})
+    # print("material_urls",material_urls)
 
     course_material_table.bind('<<TreeviewSelect>>',url_loader)
+    def do_quiz():
+        window.destroy()
+    ttk.Button(window,text = "Quiz",command=do_quiz).place(x = 800,y = 500)
 
     window.mainloop()
+
